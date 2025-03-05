@@ -45,7 +45,7 @@ const CreateBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/blog/add', {
+      const response = await axios.post('https://blogging-website-backend-chaimaalachhabs-projects.vercel.app/blog/add', {
         ...formData,
         author: { _id: formData.author._id }
       });

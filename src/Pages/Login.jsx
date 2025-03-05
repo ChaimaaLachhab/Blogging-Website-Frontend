@@ -24,7 +24,7 @@ const Form = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/user/login", {
+      const response = await axios.post("https://blogging-website-backend-chaimaalachhabs-projects.vercel.app/user/login", {
         email,
         password
       });
