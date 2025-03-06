@@ -27,7 +27,6 @@ const Home = () => {
   return (
     <StyledContainer>
       <Header />
-
       <BannerSection>
         <BannerOverlay />
         <BannerContent>
@@ -61,15 +60,16 @@ const Home = () => {
         ) : (
           <BlogGrid>
             {blogs.length > 0 ? (
-              blogs.map((blog, index) => (
+              blogs.map((blog) => (
                 <Card
+                  key={blog._id} // Ajout de la clé unique
+                  id={blog._id} // Ajout de l'ID pour la navigation
                   title={blog.title}
                   description={blog.description}
                   author={blog.author?.name || "Unknown"}
                   image={blog.image || "https://source.unsplash.com/random/800x600"}
                   date={new Date(blog.date).toLocaleDateString('fr-FR')}
                 />
-
               ))
             ) : (
               <EmptyMessage>Aucun article disponible pour le moment</EmptyMessage>
@@ -98,11 +98,21 @@ const StyledContainer = styled.div`
 const BannerSection = styled.section`
   position: relative;
   height: 70vh;
+  min-height: 400px;
   overflow: hidden;
   margin-bottom: 4rem;
+  
+  @media (max-width: 768px) {
+    height: 60vh;
+    min-height: 350px;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    height: 50vh;
+    min-height: 300px;
+  }
 `;
-
-
 
 const BannerContent = styled.div`
   position: relative;
@@ -113,16 +123,37 @@ const BannerContent = styled.div`
   color: white;
   max-width: 1200px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    width: 90%;
+  }
 `;
 
 const AnimatedTitle = styled.h1`
   font-size: 3.5rem;
   margin-bottom: 1.5rem;
+  line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   animation: ${fadeIn} 1s ease-out;
 
+  @media (max-width: 992px) {
+    font-size: 3rem;
+  }
+
   @media (max-width: 768px) {
     font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    line-height: 1.1;
+    br { display: none; }
   }
 `;
 
@@ -132,6 +163,59 @@ const BannerSubtitle = styled.p`
   margin-bottom: 2rem;
   animation: ${fadeIn} 1s ease-out 0.2s;
   animation-fill-mode: backwards;
+  
+  h1 {
+    font-size: inherit;
+    margin: 0;
+    
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+      line-height: 1.4;
+    }
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+`;
+
+const ActionButton = styled.a`
+  display: inline-block;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff6b00, #ff9000);
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255,107,0,0.4);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    max-width: 90%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  @media (hover: none) {
+    transform: none !important;
+    box-shadow: none !important;
+  }
 `;
 
 const MainContent = styled.main`
@@ -187,23 +271,7 @@ const EmptyMessage = styled.p`
   padding: 4rem 0;
 `;
 
-const ActionButton = styled.a`
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.8rem 1.8rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
-  background: linear-gradient(135deg, #ff6b00, #ff9000);
-  border-radius: 30px;
-  text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 107, 0, 0.3);
-  }
-`;
 const BannerOverlay = styled.div`
   position: absolute;
   width: 100%;

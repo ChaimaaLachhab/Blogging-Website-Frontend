@@ -1,6 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';  
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+library.add(fab);
 
 // Animation d'entrée
 const slideUp = keyframes`
@@ -107,6 +112,39 @@ const StyledFooter = styled.footer`
   }
 `;
 
+const SocialIconsContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+
+  a {
+    color: white;
+    font-size: 1.4rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+
+    &:hover {
+      color: #ff6b00;
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
 const Footer = () => {
   return (
     <StyledFooter>
@@ -126,9 +164,24 @@ const Footer = () => {
           <a href="/terms">Conditions d&apos;utilisation</a>
         </div>
 
-        {/* Suppression des icônes des réseaux sociaux */}
         <div className="footer-socials">
-          {/* Section vide ou possibilité d'ajouter d'autres éléments si souhaité */}
+          <h3 style={{ marginBottom: '1.5rem', fontSize: '1.2rem' }}>
+            Suivez-nous
+          </h3>
+          <SocialIconsContainer>
+            <a href="#" aria-label="Facebook">
+              <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+            </a>
+            <a href="#" aria-label="Twitter">
+              <FontAwesomeIcon icon={['fab', 'twitter']} />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <FontAwesomeIcon icon={['fab', 'instagram']} />
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <FontAwesomeIcon icon={['fab', 'linkedin-in']} />
+            </a>
+          </SocialIconsContainer>
         </div>
       </div>
     </StyledFooter>

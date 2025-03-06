@@ -1,20 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 
 // eslint-disable-next-line react/prop-types
-const Card = ({ title, description, author, image }) => {
+const Card = ({id, title, description, author, image, date }) => {
   return (
     <StyledWrapper>
       <div className="card">
         <img src={image} alt={title} className="card-image" />
-        <div className="main-content">
-          <h2 className="heading">{title}</h2>
-          <p className="description">{description}</p>
-        </div>
-        <div className="footer">
-          <span>par {author}</span>
-          <button className="read-more">Lire Plus</button>
+        <div className="container-desc">
+          <div className="main-content">
+            <h2 className="heading">{title}</h2>
+            <p className="description">{description}</p>
+          </div>
+          <div className="footer">
+            <span>par {author}</span>
+            <Link to={`/blog/${id}`} className="read-more">
+              Lire Plus
+            </Link>
+          </div>
         </div>
       </div>
     </StyledWrapper>
@@ -23,8 +28,6 @@ const Card = ({ title, description, author, image }) => {
 
 const StyledWrapper = styled.div`
   .card {
-    width: 100%;
-    padding: 20px;
     border: 2px solidrgb(211, 24, 24);
     border-radius: 12px;
     display: flex;
@@ -34,6 +37,7 @@ const StyledWrapper = styled.div`
   }
 
   .card:hover {
+  padding: 10px;
     background-color:rgb(255, 255, 255);
     transform: scale(0.98);
     box-shadow: 0px 4px 25px rgba(255, 128, 0, 0.5);
@@ -41,10 +45,13 @@ const StyledWrapper = styled.div`
 
   .card-image {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 16px;
+  }
+
+  .container-desc {
+    padding: 20px;
   }
 
   .heading {
